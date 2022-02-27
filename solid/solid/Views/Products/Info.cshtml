@@ -1,0 +1,48 @@
+﻿@model Product
+
+<section id="wrapper">
+    <header style="background-image:linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url(@Model.Image); background-position:center; background-size:cover;">
+        <div class="inner">
+            <h2>@Model.Name</h2>
+            <p>@Model.Description</p>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <div class="inner">
+
+            <h3 class="major">Comments</h3>
+            @foreach (Comment item in Model.Comments)
+            {
+                <div>
+                    <h4>@item.CommenterName - @item.CommenterEmail - @item.CommentDate.ToString("dd.MM.yyyy")</h4>
+                    <blockquote>
+                        @item.Text
+                    </blockquote>
+                </div>
+            }
+            <h3 class="major">Leave your comment</h3>
+            <form method="post" action="/products/addcomment">
+                <div class="fields">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" />
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" />
+                    </div>
+                    <div class="field">
+                        <label for="text">Comment</label>
+                        <textarea name="text" id="text" rows="4"></textarea>
+                    </div>
+                    <input type="hidden" name="prodId" value="@Model.Id" />
+                </div>
+                <ul class="actions">
+                    <li><input type="submit" value="Comment" /></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+</section>

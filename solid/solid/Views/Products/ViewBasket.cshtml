@@ -1,0 +1,59 @@
+﻿@model List<BasketItem>
+<section>
+    <div class="wrapper">
+        <div class="inner">
+            <h4>Basket</h4>
+
+            <div class="table-wrapper basket-table">
+                <table class="alt">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Unit Price</th>
+                            <th>Count</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null || Model.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    Sizin basket bosdur.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (BasketItem item in Model)
+                            {
+                                <tr>
+                                    <td>@item.product.Name</td>
+                                    <td>@(Utils.coinToMoney(item.product.Price))</td>
+                                    <td>
+                                        <a href="/products/decreaseBasket/@item.product.Id" class="decrease-count lnr lnr-chevron-down">
+                                        </a>
+                                        <span class="actualCount">@item.count</span>
+                                        <a href="/products/increaseBasket/@item.product.Id" class="increase-count lnr lnr-chevron-up">
+                                        </a>
+                                    </td>
+                                    <td>@(Utils.coinToMoney(item.totalPrice))</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3"></td>
+                            <td>@(Utils.coinToMoney(ViewBag.basketTotal))</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div>
+                    <a href="#" class="button primary">Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
